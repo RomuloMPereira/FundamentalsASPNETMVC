@@ -98,6 +98,31 @@ namespace FundamentalsMVC.Controllers
             return RedirectToAction("CustomerList");
         }
 
+        public ActionResult DeleteCustomer(string id)
+        {
+            Customer customer = customers.FirstOrDefault(c => c.Id == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteCustomer")]
+        public ActionResult ConfirmDeleteCustomer(string id)
+        {
+            Customer customer = customers.FirstOrDefault(c => c.Id == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            customers.Remove(customer);
+
+            return RedirectToAction("CustomerList");
+        }
+
         public ActionResult CustomerList()
         {
             return View(customers);
