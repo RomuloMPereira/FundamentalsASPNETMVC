@@ -46,6 +46,17 @@ namespace FundamentalsMVC.Controllers
             return View();
         }
 
+        public ActionResult ViewCustomer(string id)
+        {
+            Customer customer = customers.FirstOrDefault(c => c.Id == id);
+            if(customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
         public ActionResult AddCustomer()
         {
             return View();
