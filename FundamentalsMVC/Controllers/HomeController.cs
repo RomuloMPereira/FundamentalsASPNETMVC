@@ -72,6 +72,32 @@ namespace FundamentalsMVC.Controllers
             return RedirectToAction("CustomerList");
         }
 
+        public ActionResult EditCustomer(string id)
+        {
+            Customer customer = customers.FirstOrDefault(c => c.Id == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult EditCustomer(Customer customer, string id)
+        {
+            var customerToEdit = customers.FirstOrDefault(c => c.Id == id);
+            if (customerToEdit == null)
+            {
+                return HttpNotFound();
+            }
+            customerToEdit.Name = customer.Name;
+            customerToEdit.Telephone = customer.Telephone;
+            SaveCache();
+
+            return RedirectToAction("CustomerList");
+        }
+
         public ActionResult CustomerList()
         {
             return View(customers);
