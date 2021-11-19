@@ -46,6 +46,15 @@ namespace FundamentalsMVC.Controllers
             return View();
         }
 
+        public PartialViewResult Basket()
+        {
+            BasketViewModel model = new BasketViewModel();
+            model.BasketCount = 5;
+            model.BasketTotal = "$100";
+
+            return PartialView(model);
+        }
+
         public ActionResult ViewCustomer(string id)
         {
             Customer customer = customers.FirstOrDefault(c => c.Id == id);
