@@ -46,12 +46,23 @@ namespace FundamentalsMVC.Controllers
             return View();
         }
 
+        public ActionResult AddCustomer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomer(Customer customer)
+        {
+            customer.Id = Guid.NewGuid().ToString();
+            customers.Add(customer);
+            SaveCache();
+
+            return RedirectToAction("CustomerList");
+        }
+
         public ActionResult CustomerList()
         {
-            List<Customer> customers = new List<Customer>();
-            customers.Add(new Customer() { Name = "Bruno", Telephone = "99999999999" });
-            customers.Add(new Customer() { Name = "Lara", Telephone = "99999999888" });
-
             return View(customers);
         }
     }
