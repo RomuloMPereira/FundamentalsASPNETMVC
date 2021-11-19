@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,6 +10,23 @@ namespace FundamentalsMVC.Controllers
 {
     public class HomeController : Controller
     {
+        ObjectCache cache = MemoryCache.Default;
+        List<Customer> customers;
+
+        public HomeController()
+        {
+            customers = cache["customers"] as List<Customer>;
+            if (customers == null)
+            {
+                customers = new List<Customer>();
+            }
+        }
+
+        public void SaveCache()
+        {
+            cache["customers"] = customers;
+        }
+
         public ActionResult Index()
         {
             return View();
