@@ -65,6 +65,10 @@ namespace FundamentalsMVC.Controllers
         [HttpPost]
         public ActionResult AddCustomer(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
             customer.Id = Guid.NewGuid().ToString();
             customers.Add(customer);
             SaveCache();
